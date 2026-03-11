@@ -9,24 +9,23 @@ export default function Chat() {
   const sendMessage = useChatStore((state) => state.sendMessage)
 
   const [input, setInput] = useState('')
-  //const bottomRef = useRef<HTMLDivElement>(null)
 
-  // Lyssna på inkommande meddelanden och lägg till i storen
   // Används endast en gång vid start
   useEffect(() => {
+    // Lyssna på inkommande meddelanden och lägg till i storen
     socket.on('message', addMessage)
+    // Städa upp när komponenten unmountas
     return () => { socket.off('message', addMessage) }
   }, [])
 
-  // Scrolla till botten vid nya meddelanden
-  // useEffect(() => {
-  //   bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  // }, [messages])
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault()
+    // Om inputen inte är ren, returnera  
     if (!input.trim()) return
+    // Skicka meddelandet
     sendMessage(input.trim())
+    // Rensa inputfältet
     setInput('')
   }
 
@@ -55,7 +54,6 @@ export default function Chat() {
               </div>
             )
           })}
-          {/* <div ref={bottomRef} /> */}
         </div>
 
         <form onSubmit={handleSend} className="px-6 py-4 border-t border-gray-100 flex gap-3">

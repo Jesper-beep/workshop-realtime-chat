@@ -11,7 +11,7 @@ Se diagrammet för hur socket, React-komponenter och Zustand store hänger ihop:
 
 ```bash
 # Starta servern
-cd server && node --watch index.js
+cd server && npx tsx watch index.ts
 
 # Starta klienten (i ny terminal)
 cd client && npm run dev
@@ -23,7 +23,7 @@ cd client && npm run dev
 
 | Fil | Vad den gör |
 |-----|-------------|
-| `server/index.js` | socket.io-server på port 3002 |
+| `server/index.ts` | socket.io-server på port 3002 |
 | `client/src/socket.ts` | skapar socket-instansen (autoConnect: false) |
 | `client/src/App.tsx` | visar `<UsernameForm>` eller `<Chat>` beroende på `connected` |
 | `client/src/components/UsernameForm.tsx` | formulär för att ange namn och ansluta |
@@ -104,7 +104,3 @@ Selektorer gör att komponenten bara renderas om när just det värdet ändras.
 
 ---
 
-### Bonus
-
-- [ ] Visa tidsstämpel på varje meddelande
-- [ ] Lägg till en räknare för antal anslutna användare (kräver server-ändringar)

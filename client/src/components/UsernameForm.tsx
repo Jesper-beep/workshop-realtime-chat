@@ -11,14 +11,27 @@ export default function UsernameForm() {
 
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault()
+    // Om användaren inte har ett namn, returnera
     if (!input.trim()) return
+    // Om användaren inte har ett namn, sätt det till "Anonym"
+    if (!input.trim()) {
+      setUsername('Anonym')
+      return
+    }
+    // Om användaren har ett namn, sätt det till det
     setUsername(input.trim())
+
+    // Lyssna på om socketen är ansluten
     socket.once('connect', () => {
       console.log('socket connected!')
+      console.log('username:', input.trim());
       setConnected(true)
     })
+    // Om anslutningen misslyckas, logga felet
     socket.on('connect_error', (err) => console.error('connect_error:', err))
+    // Anslut till socketen
     socket.connect()
+    // Logga om socketen är ansluten
     console.log('socket.connected:', socket.connected)
   }
 
